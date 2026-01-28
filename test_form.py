@@ -1,29 +1,19 @@
-from selene.support.shared import browser
-from pathlib import Path
-from selene import have
-from homework9.pages.registration_page import RegistrationPage
+from homework9.application import app
+from homework9.data.users import User
 
 
-def test_automation_form():
-    registration_page = RegistrationPage()
+def test_fill_text_box():
+    user = User(
+        full_name='Artiom',
+        email='artiom@example.com',
+        current_address='Saint-Petersburg',
+        permanent_address='Moscow'
+        )
+    app.left_panel.open_simple_registration_form()
+    app.registration_page \
+        .should_be_opened() \
+        .fill_data(user) \
+        .submit() \
+        .should_display_submitted_data(user)
 
-    registration_page.open()
-    registration_page.fill_first_name('Олег')
-    registration_page.fill_last_name('Олегович')
-    registration_page.fill_email('oleg.olegovich@example.com')
-    registration_page.fill_gender('Male')
-    registration_page.fill_mobile_number('1234567890')
-    registration_page.fill_date_of_birth('2000','July','10')
-    registration_page.fill_subject('Maths')
-    registration_page.fill_hobbies('Sports')
-    registration_page.download_file()
-    registration_page.fill_current_address('г. Москва, ул. 9-мая, д. 1')
-    registration_page.fill_state('NCR')
-    registration_page.fill_city('Delhi')
-    registration_page.submit()
-
-
-    registration_page.should_registered_user_with('Олег Олегович','oleg.olegovich@example.com','Male','1234567890','10 July,2000',
-            'Maths','Sports','_.jpeg','г. Москва, ул. 9-мая, д. 1','NCR Delhi'
-            )
 
