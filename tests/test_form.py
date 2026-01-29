@@ -1,3 +1,4 @@
+import pytest
 from selene.support.shared import browser
 from pathlib import Path
 from selene import have
