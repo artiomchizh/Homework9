@@ -55,7 +55,10 @@ class RegistrationPage:
             browser.element('[for="hobbies-checkbox-2"]').click()
         else: browser.element('[for="hobbies-checkbox-3"]').click()
     def download_file(self):
-        browser.element('#uploadPicture').set_value(Path("image/_.jpeg").resolve())
+        file_path = (
+                Path(__file__).parent.parent.parent / "image/_.jpeg")
+        browser.element("#uploadPicture").send_keys(
+            str(file_path.resolve()))
     def fill_current_address(self, address):
         browser.element('#currentAddress').type(address)
 
