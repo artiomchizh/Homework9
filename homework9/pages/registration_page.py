@@ -49,7 +49,10 @@ class RegistrationPage:
         elif user.hobbies == "Reading":
             browser.element('[for="hobbies-checkbox-2"]').click()
         else: browser.element('[for="hobbies-checkbox-3"]').click()
-        self.file.set_value(Path("image/_.jpeg").resolve())
+        file_path = (
+                Path(__file__).parent.parent.parent / "image/_.jpeg")
+        self.file.send_keys(
+            str(file_path.resolve()))
         self.address.type(user.address)
         browser.element('#react-select-3-input').type(user.state)
         browser.element('[id^="react-select-3-option-"]').click()
